@@ -1,0 +1,18 @@
+{
+    "configurations": [
+        {
+            "includePath": [
+                "${workspaceFolder}/**",
+                "C:/Espressif/frameworks/esp-idf-v5.2/**",
+                "${workspaceFolder}/Esp32/Include/Hal/**",
+                "C:/Yuri_Projects/Coffee_machine/Esp32/Include/Hal/**"
+            ],
+            "defines": [
+                "_DEBUG",
+                "UNICODE",
+                "_UNICODE"
+            ]
+        }
+    ],
+    "version": 4
+}
