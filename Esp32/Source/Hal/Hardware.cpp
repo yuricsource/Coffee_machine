@@ -23,5 +23,9 @@ Hardware::~Hardware()
 {
 }
 
+uint32_t Hardware::Milliseconds()
+{
+	return xTaskGetTickCount() * portTICK_PERIOD_MS;
+}
 
 } // namespace Hal

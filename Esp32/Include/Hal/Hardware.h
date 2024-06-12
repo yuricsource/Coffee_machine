@@ -12,6 +12,7 @@ class Hardware
 public:
     Hardware();
     ~Hardware();
+    uint32_t Milliseconds();
 
 static inline Hardware *Instance()
 {

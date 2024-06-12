@@ -5,8 +5,10 @@
 #include <stdio.h>
 #include "esp_err.h"
 #include "Hardware.h"
+#include "Logger.h"
 
 using namespace Hal;
+using namespace Utilities;
 
 extern "C" void app_main(void)
 {
@@ -15,7 +17,7 @@ extern "C" void app_main(void)
 	Dwt::DelayMilliseconds(10);
     for(;;)
     {
-        printf("Delaying for 1 sec\n");
+        Logger::LogInfo("Delaying for 1 sec");
         Dwt::DelayMilliseconds(1000);
         vTaskDelay(1);
     }
