@@ -5,7 +5,9 @@
                 "${workspaceFolder}/**",
                 "C:/Espressif/frameworks/esp-idf-v5.2/**",
                 "${workspaceFolder}/Esp32/Include/Hal/**",
-                "C:/Yuri_Projects/Coffee_machine/Esp32/Include/Hal/**"
+                "C:/Yuri_Projects/Coffee_machine/Esp32/Include/**",
+                "C:/Program Files (x86)/Microsoft Visual Studio/2022/BuildTools/**",
+                "C:/Users/yurif.vscode/extensions/**"
             ],
             "defines": [
                 "_DEBUG",

@@ -1,5 +1,5 @@
 #include "Hardware.h"
-#include "stdio.h"
+#include <stdio.h>
 #include "esp_idf_version.h"
 
 namespace Hal
@@ -7,10 +7,12 @@ namespace Hal
 
 Hardware *Hardware::_pHardware;
 
-Hardware::Hardware()
+Hardware::Hardware() :
+	_wifiDriver()
 {
     printf("SDK Version         		: %s\n", (char *)esp_get_idf_version());
-
+	Dwt::DelayMicrosecond(10);
+	Dwt::DelayMilliseconds(10);
     if (_pHardware == nullptr)
 		_pHardware = this;
 	else

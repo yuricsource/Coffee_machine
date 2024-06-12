@@ -68,7 +68,9 @@
       "stdexcept": "cpp",
       "streambuf": "cpp",
       "thread": "cpp",
-      "typeinfo": "cpp"
+      "typeinfo": "cpp",
+      "corecrt_stdio_config.h": "c",
+      "corecrt.h": "c"
     },
     "C_Cpp.errorSquiggles": "enabled"
   }

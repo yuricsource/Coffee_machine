@@ -1,6 +1,9 @@
 #ifndef INCLUDE_HAL_HARDWARE_H_
 #define INCLUDE_HAL_HARDWARE_H_
 
+#include "Wifidriver.h"
+#include "Dwt.h"
+
 namespace Hal
 {
 
@@ -21,6 +24,7 @@ static inline Hardware *Instance()
 
 private:
     static Hardware *_pHardware;
+    WifiDriver _wifiDriver;
 
 };
 } // namespace Hal
