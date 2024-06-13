@@ -4,8 +4,7 @@
             "includePath": [
                 "${workspaceFolder}/**",
                 "C:/Espressif/frameworks/esp-idf-v5.2/**",
-                "${workspaceFolder}/Esp32/Include/Hal/**",
-                "C:/Yuri_Projects/Coffee_machine/Esp32/Include/**",
+                "${workspaceFolder}/Esp32/**",
                 "C:/Program Files (x86)/Microsoft Visual Studio/2022/BuildTools/**",
                 "C:/Users/yurif.vscode/extensions/**"
             ],
@@ -13,7 +12,11 @@
                 "_DEBUG",
                 "UNICODE",
                 "_UNICODE"
-            ]
+            ],
+            "intelliSenseMode": "windows-msvc-x64",
+            "compilerPath": "C:\\Program Files\\Microsoft Visual Studio\\2022\\Community\\VC\\Tools\\MSVC\\14.40.33807\\bin\\Hostx64\\x64\\cl.exe",
+            "cStandard": "c17",
+            "cppStandard": "c++17"
         }
     ],
     "version": 4

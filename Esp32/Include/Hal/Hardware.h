@@ -12,6 +12,7 @@ class Hardware
 public:
     Hardware();
     ~Hardware();
+    WifiDriver &GetWifi() { return _wifiDriver; }
     uint32_t Milliseconds();
 
 static inline Hardware *Instance()

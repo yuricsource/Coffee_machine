@@ -4,21 +4,25 @@
 #include "freertos/FreeRTOS.h"
 #include <stdio.h>
 #include "esp_err.h"
-#include "Hardware.h"
 #include "Logger.h"
+#include "Hardware.h"
+#include "DebugAssert.h"
 
 using namespace Hal;
 using namespace Utilities;
 
+// #define EXAMPLE_ESP_WIFI_SSID      "Yuri_R_Up"
+// #define EXAMPLE_ESP_WIFI_PASS      "Australia4us"
+
 extern "C" void app_main(void)
 {
     Hardware *hardware = Hardware::Instance();
-    Dwt::DelayMicrosecond(10);
-	Dwt::DelayMilliseconds(10);
+    
     for(;;)
     {
-        Logger::LogInfo("Delaying for 1 sec");
-        Dwt::DelayMilliseconds(1000);
+        Logger::LogInfo("Crashing in 5 sec");
+        Dwt::DelayMilliseconds(5000);
         vTaskDelay(1);
+        DebugAssertFail("This is an example of DebugAssertFail");
     }
 }

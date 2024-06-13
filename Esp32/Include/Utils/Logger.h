@@ -2,7 +2,6 @@
 
 #include <cstdint>
 #include <cstdarg>
-#include "Hardware.h"
 #include "mutex.hpp"
 
 using cpp_freertos::LockGuard;
