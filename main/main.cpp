@@ -7,9 +7,11 @@
 #include "Logger.h"
 #include "Hardware.h"
 #include "DebugAssert.h"
+#include "ApplicationAgent.h"
 
 using namespace Hal;
 using namespace Utilities;
+using namespace Applications;
 
 // #define EXAMPLE_ESP_WIFI_SSID      "Yuri_R_Up"
 // #define EXAMPLE_ESP_WIFI_PASS      "Australia4us"
@@ -17,7 +19,8 @@ using namespace Utilities;
 extern "C" void app_main(void)
 {
     Hardware *hardware = Hardware::Instance();
-    
+    ApplicationAgent::Instance();
+
     for(;;)
     {
         Logger::LogInfo("Crashing in 5 sec");
