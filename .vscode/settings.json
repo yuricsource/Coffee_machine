@@ -72,6 +72,8 @@
       "corecrt_stdio_config.h": "c",
       "corecrt.h": "c",
       "freertosconfig.h": "c",
-      "sdkconfig.h": "c"
+      "sdkconfig.h": "c",
+      "xstring": "cpp",
+      "xutility": "cpp"
     }
   }

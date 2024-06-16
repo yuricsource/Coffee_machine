@@ -35,8 +35,8 @@ void WifiService::Run()
     //DebugAssert(esp_netif_init(), ESP_OK);
 
     WifiDriver &_wifiDriver = Hardware::Instance()->GetWifi();
-    memcpy(_ssid.data(), "Yuri_R2",sizeof("Yuri_R2"));
-    memcpy(_password.data(), "Australia4us",sizeof("Australia4us"));
+    memcpy(_listWifiSettings[0].Ssid.data(), "Yuri_R2",sizeof("Yuri_R2"));
+    memcpy(_listWifiSettings[0].Password.data(), "Australia4us",sizeof("Australia4us"));
     Logger::LogInfo(Logger::LogSource::Wifi, "Running Wifi.");
     for (;;)
     {
@@ -60,18 +60,18 @@ void WifiService::Run()
         {
             if (_wifiMode == WifiModeConfiguration::Client)
             {
-                Logger::LogInfo(Logger::LogSource::Wifi, "SSID: %s.",_ssid.data());
+                Logger::LogInfo(Logger::LogSource::Wifi, "SSID: %s.",_listWifiSettings[0].Ssid.data());
                 _wifiDriver.SetMode(WifiModeConfiguration::Client);
-                _wifiDriver.SetSsid(_ssid.data(),_ssid.size());
-                _wifiDriver.SetPassword(_password.data(),_password.size());
+                _wifiDriver.SetSsid(_listWifiSettings[0].Ssid.data(),_listWifiSettings[0].Ssid.size());
+                _wifiDriver.SetPassword(_listWifiSettings[0].Password.data(),_listWifiSettings[0].Password.size());
                 _wifiDriver.SetAuthentication(_authentication);
             }
             else
             {
-               Logger::LogInfo(Logger::LogSource::Wifi, "SSID: %s.",_ssid.data());
+               Logger::LogInfo(Logger::LogSource::Wifi, "SSID: %s.",_listWifiSettings[0].Ssid.data());
                 _wifiDriver.SetMode(WifiModeConfiguration::HotSpot);
-                _wifiDriver.SetSsid(_ssid.data(),_ssid.size());
-                _wifiDriver.SetPassword(_password.data(),_password.size());
+                _wifiDriver.SetSsid(_listWifiSettings[0].Ssid.data(),_listWifiSettings[0].Ssid.size());
+                _wifiDriver.SetPassword(_listWifiSettings[0].Password.data(),_listWifiSettings[0].Password.size());
                 _wifiDriver.SetAuthentication(_authentication);
                 _wifiDriver.SetChannel(_channel);
             }

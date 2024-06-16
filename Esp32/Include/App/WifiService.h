@@ -13,6 +13,7 @@
 #include "lwip/ip_addr.h"
 // #include "ConfigurationAgent.h"
 #include "Hardware.h"
+#include <array>
 
 namespace Applications
 {
@@ -22,6 +23,7 @@ using Hal::WifiModeConfiguration;
 using Hal::WifiSsid;
 using Hal::WifiPassword;
 using Hal::WifiDriver;
+using std::array;
 
 class WifiService : public cpp_freertos::Thread
 {
@@ -36,6 +38,8 @@ public:
     }
 
     void ConfigurationUpdated();
+
+    static const uint8_t MaxWifiListSettings = 10;
 
 protected:
     void Run() override;
@@ -71,9 +75,14 @@ private:
 	WifiModeConfiguration _wifiMode = WifiModeConfiguration::HotSpot;    
 	uint8_t _channel = 8;
     
-	WifiSsid _ssid = {};
-	WifiPassword _password = {};
+    class WifiSettings
+    {
+    public:
+        WifiSsid Ssid = {};
+        WifiPassword Password = {};
+    };
 
+    std::array <WifiSettings, MaxWifiListSettings> _listWifiSettings;
     void changeState(WifiState wifiState);
 
 private:

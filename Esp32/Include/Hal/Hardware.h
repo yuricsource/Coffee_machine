@@ -15,6 +15,7 @@ public:
     ~Hardware();
     WifiDriver &GetWifi() { return _wifiDriver; }
     uint32_t Milliseconds();
+    void SoftwareReset();
 
 static inline Hardware *Instance()
 {

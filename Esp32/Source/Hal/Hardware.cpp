@@ -48,4 +48,9 @@ uint32_t Hardware::Milliseconds()
 	return xTaskGetTickCount() * portTICK_PERIOD_MS;
 }
 
+void Hardware::SoftwareReset()
+{
+	esp_restart();
+}
+
 } // namespace Hal
