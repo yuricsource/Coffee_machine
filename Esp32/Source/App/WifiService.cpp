@@ -24,8 +24,11 @@ void WifiService::ConfigurationUpdated()
 
 void WifiService::changeState(WifiState wifiState)
 {
+    if (static_cast<uint8_t>(wifiState) >=  static_cast<uint8_t>(WifiState::WifiStateCount))
+        return;
+    
     _wifiState = wifiState;
-    Logger::LogInfo(Logger::LogSource::Wifi, "wifiState: %d",static_cast<uint8_t>(wifiState));
+    Logger::LogInfo(Logger::LogSource::Wifi, "wifiState: %s",WifiStateStrings[static_cast<uint8_t>(wifiState)]);
 }
 
 
@@ -35,18 +38,19 @@ void WifiService::Run()
     //DebugAssert(esp_netif_init(), ESP_OK);
 
     WifiDriver &_wifiDriver = Hardware::Instance()->GetWifi();
-    memcpy(_listWifiSettings[0].Ssid.data(), "Yuri_R2",sizeof("Yuri_R2"));
+    memcpy(_listWifiSettings[0].Ssid.data(), "Yuri_R",sizeof("Yuri_R"));
     memcpy(_listWifiSettings[0].Password.data(), "Australia4us",sizeof("Australia4us"));
+    Delay(1000);
     Logger::LogInfo(Logger::LogSource::Wifi, "Running Wifi.");
     for (;;)
     {
-        vTaskDelay(100);
+        Delay(100);
         switch (_wifiState)
         {
         case WifiState::Idle:
         {
             _connected = false;
-            vTaskDelay(100);
+            Delay(100);
             changeState(WifiState::ResetAdapter);
         }
         break;
@@ -78,6 +82,7 @@ void WifiService::Run()
             _wifiDriver.Enable();
             changeState(WifiState::WaitingTransmitter);
         }
+        break;
         case WifiState::WaitingTransmitter:
         {
             changeState(WifiState::PrepareWifiConnection);
@@ -115,15 +120,20 @@ void WifiService::Run()
         break;
         case WifiState::DhcpWaiting:
         {
-            // esp_netif_ip_info_t ip_info = {};
-            // // esp_netif_t *gnetif = _wifiDriver.GetWifiClientNetif();
+            esp_netif_ip_info_t ip_info = {};
+            esp_netif_t *gnetif = _wifiDriver.GetWifiClientNetif();
             
-            // // assert(gnetif);
-            // // DebugAssert(esp_netif_get_ip_info(gnetif, &ip_info), ESP_OK);
-    
-            // Logger::LogInfo(Logger::LogSource::Wifi, "Ip: %s",ip4addr_ntoa((const ip4_addr_t*)&ip_info.ip));
-            // Hardware::Instance()->GetCamera().Init();
-            // changeState(WifiState::DhcpDone);
+            assert(gnetif);
+            
+
+            while (_wifiDriver.GetStatus() != WifiDriver::WifiDriverStatus::Connected)
+            {
+                Logger::LogInfo(Logger::LogSource::Wifi, "Waiting for an IP");
+                Delay(1000);
+            }
+            DebugAssert(esp_netif_get_ip_info(gnetif, &ip_info), ESP_OK);
+            Logger::LogInfo(Logger::LogSource::Wifi, "Ip: %s",ip4addr_ntoa((const ip4_addr_t*)&ip_info.ip));
+            changeState(WifiState::DhcpDone);
             
         }
         break;

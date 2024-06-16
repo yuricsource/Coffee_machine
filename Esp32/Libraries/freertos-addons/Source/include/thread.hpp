@@ -313,7 +313,7 @@ class Thread {
          */
         void inline Delay(const TickType_t Delay)
         {
-            vTaskDelay(Delay);
+            vTaskDelay(Delay / (1000 / configTICK_RATE_HZ));
         }
 #endif
 

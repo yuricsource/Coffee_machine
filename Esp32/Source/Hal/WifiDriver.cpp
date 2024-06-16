@@ -29,6 +29,7 @@ namespace Hal
 static int s_retry_num = 0;
 /* FreeRTOS event group to signal when we are connected*/
 static EventGroupHandle_t s_wifi_event_group;
+static WifiDriver::WifiDriverStatus *_driverStatusLevel;
 static void wifi_event_handler(void *arg, esp_event_base_t event_base,
 							   int32_t event_id, void *event_data)
 {
@@ -37,16 +38,22 @@ static void wifi_event_handler(void *arg, esp_event_base_t event_base,
 		wifi_event_ap_staconnected_t *event = (wifi_event_ap_staconnected_t *)event_data;
 		Utilities::Logger::LogInfo("station " MACSTR " join, AID=%d\n",
 			   MAC2STR(event->mac), event->aid);
+		if (_driverStatusLevel != nullptr)
+			*_driverStatusLevel = Hal::WifiDriver::WifiDriverStatus::Connected;
 	}
 	else if (event_id == WIFI_EVENT_AP_STADISCONNECTED)
 	{
 		wifi_event_ap_stadisconnected_t *event = (wifi_event_ap_stadisconnected_t *)event_data;
 		Utilities::Logger::LogInfo("station " MACSTR " leave, AID=%d\n",
 			   MAC2STR(event->mac), event->aid);
+		if (_driverStatusLevel != nullptr)
+			*_driverStatusLevel = Hal::WifiDriver::WifiDriverStatus::Disconnected;
 	}
 	else if (event_base == WIFI_EVENT && event_id == WIFI_EVENT_STA_START)
 	{
 		esp_wifi_connect();
+		if (_driverStatusLevel != nullptr)
+			*_driverStatusLevel = Hal::WifiDriver::WifiDriverStatus::Starting;
 	}
 	else if (event_base == WIFI_EVENT && event_id == WIFI_EVENT_STA_DISCONNECTED)
 	{
@@ -58,6 +65,8 @@ static void wifi_event_handler(void *arg, esp_event_base_t event_base,
 			Utilities::Logger::LogInfo("retry to connect to the AP\n");
 		}
 		Utilities::Logger::LogInfo("connect to the AP fail\n");
+		if (_driverStatusLevel != nullptr)
+			*_driverStatusLevel = Hal::WifiDriver::WifiDriverStatus::Disconnected;
 	}
 	else if (event_base == IP_EVENT && event_id == IP_EVENT_STA_GOT_IP)
 	{
@@ -65,11 +74,14 @@ static void wifi_event_handler(void *arg, esp_event_base_t event_base,
 		Utilities::Logger::LogInfo("got ip:" IPSTR, IP2STR(&event->ip_info.ip));
 		s_retry_num = 0;
 		xEventGroupSetBits(s_wifi_event_group, WIFI_CONNECTED_BIT);
+		if (_driverStatusLevel != nullptr)
+			*_driverStatusLevel = Hal::WifiDriver::WifiDriverStatus::Connected;
 	}
 }
 
 WifiDriver::WifiDriver()
 {
+	_driverStatusLevel = &_status;
 	esp_err_t ret = nvs_flash_init();
 	if (ret == ESP_ERR_NVS_NO_FREE_PAGES || ret == ESP_ERR_NVS_NEW_VERSION_FOUND)
 	{
@@ -79,10 +91,10 @@ WifiDriver::WifiDriver()
 	s_wifi_event_group = xEventGroupCreate();
 	esp_netif_init();
 	esp_event_loop_create_default();
-	// _hotstopNetif = netif_create_default_wifi_ap();
-	// assert(_hotstopNetif);
-	// _clientNetif = netif_create_default_wifi_sta();
-	// assert(_clientNetif);
+	_hotstopNetif = esp_netif_create_default_wifi_ap();
+	assert(_hotstopNetif);
+	_clientNetif = esp_netif_create_default_wifi_sta();
+	assert(_clientNetif);
 	esp_event_handler_register(WIFI_EVENT, ESP_EVENT_ANY_ID, &wifi_event_handler, NULL);
     ESP_ERROR_CHECK(esp_event_handler_register(IP_EVENT, IP_EVENT_STA_GOT_IP, &wifi_event_handler, NULL));
 }

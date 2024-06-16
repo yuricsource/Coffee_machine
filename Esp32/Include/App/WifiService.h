@@ -60,7 +60,9 @@ private:
         DhcpDone,
         StartHotspot,
         SetStaticIp,
-        StartDhcpServer
+        StartDhcpServer,
+
+        WifiStateCount
     };
 
     WifiState _wifiState = WifiState::Idle;
@@ -72,7 +74,7 @@ private:
     ip_addr_t _gatewayAddress = {};
     ip_addr_t _dnsServer = {};
 	WifiAuthenticationMode _authentication = WifiAuthenticationMode::Open;
-	WifiModeConfiguration _wifiMode = WifiModeConfiguration::HotSpot;    
+	WifiModeConfiguration _wifiMode = WifiModeConfiguration::Client;    
 	uint8_t _channel = 8;
     
     class WifiSettings
@@ -84,7 +86,23 @@ private:
 
     std::array <WifiSettings, MaxWifiListSettings> _listWifiSettings;
     void changeState(WifiState wifiState);
-
+    const char *WifiStateStrings[static_cast<uint8_t>(WifiState::WifiStateCount)] = 
+    {
+        "Idle",
+        "ResetAdapter",
+        "ConfigureTransmitter",
+        "WaitingTransmitter",
+        "PrepareWifiConnection",
+        "StaticIpRequest",
+        "StaticIpDone",
+        "DhcpStart",
+        "DhcpRequest",
+        "DhcpWaiting",
+        "DhcpDone",
+        "StartHotspot",
+        "SetStaticIp",
+        "StartDhcpServer"
+    };
 private:
     /// @brief	Hide Copy constructor.
     WifiService(const WifiService &) = delete;
