@@ -19,7 +19,8 @@ ApplicationAgent::ApplicationAgent()
 
 void ApplicationAgent::Initialize()
 {
-    // _laserControlService = new LaserControlService();
+    _wifiService = new WifiService();
+    _wifiService->Start();
     // _menuService = new MenuService();
     // _inputScanner = new InputScannerService();
 }

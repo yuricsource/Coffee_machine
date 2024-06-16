@@ -1,6 +1,7 @@
 #pragma once
 
 #include "Hardware.h"
+#include "WifiService.h"
 
 namespace Applications
 {
@@ -21,15 +22,11 @@ public:
         return _applications;
     }
 
-    // LaserControlService* GetLaserControlService() { return _laserControlService; }
-    // MenuService* GetMenuService() { return _menuService; }
-    // InputScannerService* GetInputScannerService() { return _inputScanner; }
+    WifiService* GetWifiService() { return _wifiService; }
 
 private:
     static ApplicationAgent *_applications;
-    // LaserControlService * _laserControlService;
-    // MenuService * _menuService;
-    // InputScannerService * _inputScanner;
+    WifiService * _wifiService;
 
 private:
     /// @brief	Hide Copy constructor.

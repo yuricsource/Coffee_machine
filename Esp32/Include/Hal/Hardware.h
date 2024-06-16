@@ -3,6 +3,7 @@
 
 #include "Wifidriver.h"
 #include "Dwt.h"
+#include "esp_chip_info.h"
 
 namespace Hal
 {
@@ -26,8 +27,10 @@ static inline Hardware *Instance()
 
 private:
     static Hardware *_pHardware;
-    WifiDriver _wifiDriver;
-
+    WifiDriver _wifiDriver = {};
+    esp_chip_info_t _mcuInfo = {};
+	MacAddress _macAdrress = {};
+    uint32_t _clockSpeed = 0;
 };
 } // namespace Hal
 

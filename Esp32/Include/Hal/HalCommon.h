@@ -24,6 +24,10 @@ static constexpr uint8_t WifiPasswordMaxLength = 64;
 using WifiPassword = array<char, WifiPasswordMaxLength>;
 static_assert(sizeof(WifiPassword) == 64, "Array has invalid size.");
 
+static constexpr uint8_t MacAddressMaxLength = 6;
+using MacAddress = array<uint8_t, MacAddressMaxLength>;
+static_assert(sizeof(MacAddress) == 6, "Array has invalid size.");
+
 }
 
 #ifdef __cplusplus

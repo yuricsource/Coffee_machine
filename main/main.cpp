@@ -19,13 +19,13 @@ using namespace Applications;
 extern "C" void app_main(void)
 {
     Hardware *hardware = Hardware::Instance();
-    ApplicationAgent::Instance();
+    ApplicationAgent::Instance()->Initialize();
 
     for(;;)
     {
-        Logger::LogInfo("Crashing in 5 sec");
-        Dwt::DelayMilliseconds(5000);
-        vTaskDelay(1);
-        DebugAssertFail("This is an example of DebugAssertFail");
+        // Logger::LogInfo("Crashing in 5 sec");
+        // Dwt::DelayMilliseconds(5000);
+        vTaskDelay(100);
+        // DebugAssertFail("This is an example of DebugAssertFail");
     }
 }
