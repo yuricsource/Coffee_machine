@@ -19,10 +19,13 @@ ApplicationAgent::ApplicationAgent()
 
 void ApplicationAgent::Initialize()
 {
+    // Starting Wifi Service
     _wifiService = new WifiService();
     _wifiService->Start();
-    // _menuService = new MenuService();
-    // _inputScanner = new InputScannerService();
+
+    // Starting Command Processor service
+    _commandProcessor = new CommandProcessorService();
+    _commandProcessor->Start();
 }
 
 } // namespace Applications

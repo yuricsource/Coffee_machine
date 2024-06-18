@@ -2,6 +2,7 @@
 
 #include "Hardware.h"
 #include "WifiService.h"
+#include "CommandProcessorService.h"
 
 namespace Applications
 {
@@ -23,10 +24,12 @@ public:
     }
 
     WifiService* GetWifiService() { return _wifiService; }
+    CommandProcessorService* GetCommandervice() { return _commandProcessor; }
 
 private:
     static ApplicationAgent *_applications;
     WifiService * _wifiService;
+    CommandProcessorService * _commandProcessor;
 
 private:
     /// @brief	Hide Copy constructor.

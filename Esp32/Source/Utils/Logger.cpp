@@ -25,22 +25,14 @@ unsigned char const severityInfoLen = 1;
 char const *severityError = "E";
 unsigned char const severityErrorLen = 1;
 
-Logger::LogInfos typeInfos[14] =
+Logger::LogInfos typeInfos[6] =
 {
 	{" HAL  ", 6},
-	{"CONFIG", 6},
-	{"CAMERA", 6},
 	{" BLE  ", 6},
 	{" WIFI ", 6},
 	{" TCP  ", 6},
 	{"WEBSRV", 6},
-	{"GATEWY", 6},
-	{"FWUPDT", 6},
-	{"ADPLAY", 6},
-	{"REMOTE", 6},
-	{" LASER", 6},
-	{" MENU ", 6},
-	{" INPUT", 6}
+	{" CMD  ", 6}
 };
 
 void Logger::LogInfo(const char *format, ...)

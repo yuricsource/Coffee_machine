@@ -15,19 +15,11 @@ public:
 	enum class LogSource : uint8_t
 	{
 		Hal,
-		Configuration,
-		Camera,
 		Ble,
 		Wifi,
 		Tcp,
 		HttpServer,
-		Gateway,
-		FirmwareUpdate,
-		AudioPlayer,
-		RemoteReceiver,
-		LaserController,
-		Menu,
-		InputScanner,
+		Command,
 		Unknown = 255
 	};
 

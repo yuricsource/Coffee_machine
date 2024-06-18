@@ -18,8 +18,13 @@ using namespace Applications;
 
 extern "C" void app_main(void)
 {
-    Hardware *hardware = Hardware::Instance();
+    Hardware::Instance();
     ApplicationAgent::Instance()->Initialize();
+
+    Common::CommandBase command;
+    vTaskDelay(300);
+    command.CommandId = Common::CommandIdIndex::LastConfig;
+    ApplicationAgent::Instance()->GetCommandervice()->EnqueueCommand(command);
 
     for(;;)
     {

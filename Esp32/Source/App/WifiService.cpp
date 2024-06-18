@@ -132,7 +132,7 @@ void WifiService::Run()
                 Delay(1000);
             }
             DebugAssert(esp_netif_get_ip_info(gnetif, &ip_info), ESP_OK);
-            Logger::LogInfo(Logger::LogSource::Wifi, "Ip: %s",ip4addr_ntoa((const ip4_addr_t*)&ip_info.ip));
+            Logger::LogInfo(Logger::LogSource::Wifi, "Ip: %s", ip4addr_ntoa((const ip4_addr_t*)&ip_info.ip));
             changeState(WifiState::DhcpDone);
             
         }
