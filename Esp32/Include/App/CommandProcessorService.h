@@ -33,7 +33,10 @@ public:
     {
     }
 
-    void EnqueueCommand(CommandBase& command);
+    void SetMotorPositionCommand(uint8_t angle);
+
+private:
+    void enqueueCommand(CommandBase& command);
 
 protected:
     void Run() override;

@@ -7,7 +7,7 @@ namespace Common
 class ServoMotorSettingsCommand
 {
 public:
-    uint8_t Position;
+    uint8_t Angle;
 };
 
 }

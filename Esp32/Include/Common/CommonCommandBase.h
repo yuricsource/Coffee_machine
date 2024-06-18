@@ -10,27 +10,17 @@ using std::array;
 
 static const uint8_t CommandSize = 22;
 
-enum class CommandIdIndex : uint16_t
+enum class CommandId : uint16_t
 {
 	Unknown = 0,
-	// Configuration Index: 1 - 1000
-	FirstConfig = 1,
-	LastConfig = 1000,
-
-	// Command Index: 1001 - 2000
-	FirstCommand = 1001,
-	LastCommand = 2000,
-
-	// Response Index: 2001
-	FirstCommandResponse = 2001,
-	LastCommandResponse = 3000,
+	SetMotorPosition,
+	MaxIndexCount
 };
 
 class CommandBase
 {
-	public:
-
-	CommandIdIndex CommandId;
+public:
+	CommandId Command;
 	union
 	{
 		std::array <uint8_t, CommandSize> CommandRaw;
