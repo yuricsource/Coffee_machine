@@ -25,7 +25,7 @@ void CommandProcessorService::Run()
                 break;
             
             default:
-                Logger::LogInfo(Logger::LogSource::Command,"Unkown Command Received: %d\n", static_cast<uint16_t>(cmd.Command));
+                Logger::LogInfo(Logger::LogSource::Command,"Unkown Command ID Received: %d\n", static_cast<uint16_t>(cmd.Command));
                 break;
             }
         }
