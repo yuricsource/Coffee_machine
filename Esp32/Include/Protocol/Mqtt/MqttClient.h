@@ -2,15 +2,6 @@
 
 #include <stdio.h>
 #include <stdint.h>
-#include <string.h>
-#include <stdlib.h>
-#include <inttypes.h>
-#include "esp_system.h"
-#include "nvs_flash.h"
-#include "esp_event.h"
-#include "esp_netif.h"
-#include "esp_log.h"
-
 #include "Protocol/CommonTypes.h"
 
 namespace Protocols
@@ -18,9 +9,9 @@ namespace Protocols
 class MqttClient
 {
 public:
-    MqttClient();
-private:
+    MqttClient(MqttBrokerAddress brokerAddress, MqttConnectionName name, ConnectionPassword password, uint16_t connectionPort);
 
+private:
     MqttConnectionName _connectionName;
     ConnectionPassword _connectionPassword;
     MqttBrokerAddress _brokerAddress;
