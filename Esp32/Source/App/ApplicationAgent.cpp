@@ -26,6 +26,10 @@ void ApplicationAgent::Initialize()
     // Starting Command Processor service
     _commandProcessor = new CommandProcessorService();
     _commandProcessor->Start();
+
+    // Starting Device Client service
+    _deviceClientService = new DeviceClientService();
+    _deviceClientService->Start();
 }
 
 } // namespace Applications

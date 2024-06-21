@@ -4,6 +4,18 @@
 #include "Wifidriver.h"
 #include "Dwt.h"
 #include "esp_chip_info.h"
+#include "RTOSExtra.h"
+#include "Hardware.h"
+#include "freertos/FreeRTOS.h"
+#include "RTOSExtra.h"
+#include "freertos/task.h"
+#include "thread.hpp"
+#include "esp_err.h"
+#include "nvs_flash.h"
+#include "nvs.h"
+#include "esp_wifi.h"
+#include "WifiDriver.h"
+#include "lwip/ip_addr.h"
 
 namespace Hal
 {

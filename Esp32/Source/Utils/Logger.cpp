@@ -25,21 +25,19 @@ unsigned char const severityInfoLen = 1;
 char const *severityError = "E";
 unsigned char const severityErrorLen = 1;
 
-Logger::LogInfos typeInfos[6] =
+Logger::LogInfos typeInfos[static_cast<uint8_t>(Logger::LogSource::MaxLogSource)] =
 {
 	{" HAL  ", 6},
 	{" BLE  ", 6},
 	{" WIFI ", 6},
 	{" TCP  ", 6},
 	{"WEBSRV", 6},
-	{" CMD  ", 6}
+	{" CMD  ", 6},
+	{"CLIENT", 6}
 };
 
 void Logger::LogInfo(const char *format, ...)
 {
-	// if (Hardware::Instance()->GetDebugPort().IsEnabled() == false)
-	// 	return;
-
 	LockGuard logGuard(*_logLock);
 
 	setColour(TerminalColour::Default, BackgroundColour::Default);
@@ -59,8 +57,7 @@ void Logger::LogInfo(const char *format, ...)
 
 void Logger::LogInfo(LogSource source, const char *format, ...)
 {
-	// if (Hardware::Instance()->GetDebugPort().IsEnabled() == false)
-	// 	return;
+	assert(source != LogSource::MaxLogSource);
 
 	LockGuard logGuard(*_logLock);
 	setColour(TerminalColour::Default, BackgroundColour::Default);
@@ -87,9 +84,6 @@ void Logger::setColour(TerminalColour colour, BackgroundColour background, bool 
 
 void Logger::LogError(const char *format, ...)
 {
-	// if (Hardware::Instance()->GetDebugPort().IsEnabled() == false)
-	// 	return;
-
 	LockGuard logGuard(*_logLock);
 	setColour(TerminalColour::Red);
 
@@ -108,9 +102,8 @@ void Logger::LogError(const char *format, ...)
 
 void Logger::LogError(LogSource source, const char *format, ...)
 {
-	// if (Hardware::Instance()->GetDebugPort().IsEnabled() == false)
-	// 	return;
-
+	assert(source != LogSource::MaxLogSource);
+		
 	LockGuard logGuard(*_logLock);
 	setColour(TerminalColour::Red);
 

@@ -20,6 +20,8 @@ public:
 		Tcp,
 		HttpServer,
 		Command,
+		Client,
+		MaxLogSource,
 		Unknown = 255
 	};
 

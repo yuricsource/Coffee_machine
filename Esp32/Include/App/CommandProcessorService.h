@@ -28,7 +28,7 @@ public:
     static const uint8_t MaxCommandCount = 10;
 
     CommandProcessorService() : 
-        cpp_freertos::Thread("CMDSVC", configWIFISVC_STACK_DEPTH, 3),
+        cpp_freertos::Thread("CMDSVC", configCMDSVC_STACK_DEPTH, 3),
         _cmdQueue(MaxCommandCount, sizeof(CommandBase))
     {
     }

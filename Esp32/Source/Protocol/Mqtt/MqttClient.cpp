@@ -13,6 +13,9 @@ namespace Protocols
 {
 
 static const uint8_t *localVariableUri;
+static const uint16_t *localVariablePort;
+static const uint8_t *localVariableUser;
+static const uint8_t *localVariablePassword;
 
 static const char *TAG = "mqtt_example";
 
@@ -95,6 +98,9 @@ static void mqtt_app_start(void)
 {
     esp_mqtt_client_config_t mqtt_cfg = {};
     mqtt_cfg.broker.address.uri = (const char*)localVariableUri;
+    mqtt_cfg.broker.address.port = *localVariablePort;
+    mqtt_cfg.credentials.username = (const char*)localVariableUser;
+    mqtt_cfg.credentials.authentication.password = (const char*)localVariablePassword;
 
     esp_mqtt_client_handle_t client = esp_mqtt_client_init(&mqtt_cfg);
     /* The last argument may be used to pass data to the event handler, in this example mqtt_event_handler */
@@ -110,6 +116,9 @@ MqttClient::MqttClient(MqttBrokerAddress brokerAddress, MqttConnectionName name,
     _connectionPort = connectionPort;
 
     localVariableUri = _brokerAddress.data();
+    localVariablePort = &_connectionPort;
+    localVariableUser = _connectionName.data();
+    localVariablePassword = _connectionPassword.data();
 
     ESP_ERROR_CHECK(nvs_flash_init());
     ESP_ERROR_CHECK(esp_netif_init());
