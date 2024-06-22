@@ -21,7 +21,7 @@ public:
 		HttpServer,
 		Command,
 		Client,
-		MaxLogSource,
+		MaxLogSourceCount,
 		Unknown = 255
 	};
 

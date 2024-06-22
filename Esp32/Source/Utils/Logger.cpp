@@ -25,7 +25,7 @@ unsigned char const severityInfoLen = 1;
 char const *severityError = "E";
 unsigned char const severityErrorLen = 1;
 
-Logger::LogInfos typeInfos[static_cast<uint8_t>(Logger::LogSource::MaxLogSource)] =
+Logger::LogInfos typeInfos[static_cast<uint8_t>(Logger::LogSource::MaxLogSourceCount)] =
 {
 	{" HAL  ", 6},
 	{" BLE  ", 6},
@@ -57,7 +57,7 @@ void Logger::LogInfo(const char *format, ...)
 
 void Logger::LogInfo(LogSource source, const char *format, ...)
 {
-	assert(source != LogSource::MaxLogSource);
+	assert(source != LogSource::MaxLogSourceCount);
 
 	LockGuard logGuard(*_logLock);
 	setColour(TerminalColour::Default, BackgroundColour::Default);
@@ -102,7 +102,7 @@ void Logger::LogError(const char *format, ...)
 
 void Logger::LogError(LogSource source, const char *format, ...)
 {
-	assert(source != LogSource::MaxLogSource);
+	assert(source != LogSource::MaxLogSourceCount);
 		
 	LockGuard logGuard(*_logLock);
 	setColour(TerminalColour::Red);
