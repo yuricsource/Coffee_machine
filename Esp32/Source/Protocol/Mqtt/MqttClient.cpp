@@ -64,8 +64,8 @@ static void mqtt_event_handler(void *handler_args, esp_event_base_t base, int32_
 
     case MQTT_EVENT_SUBSCRIBED:
         ESP_LOGI(TAG, "MQTT_EVENT_SUBSCRIBED, msg_id=%d", event->msg_id);
-        msg_id = esp_mqtt_client_publish(client, "/topic/qos0", "data", 0, 0, 0);
-        ESP_LOGI(TAG, "sent publish successful, msg_id=%d", msg_id);
+        // msg_id = esp_mqtt_client_publish(client, "/topic/qos0", "data", 0, 0, 0);
+        // ESP_LOGI(TAG, "sent publish successful, msg_id=%d", msg_id);
         break;
     case MQTT_EVENT_UNSUBSCRIBED:
         ESP_LOGI(TAG, "MQTT_EVENT_UNSUBSCRIBED, msg_id=%d", event->msg_id);
@@ -106,6 +106,26 @@ static void mqtt_app_start(void)
     /* The last argument may be used to pass data to the event handler, in this example mqtt_event_handler */
     esp_mqtt_client_register_event(client, (esp_mqtt_event_id_t)ESP_EVENT_ANY_ID, mqtt_event_handler, NULL);
     esp_mqtt_client_start(client);
+
+    const char* configMessage = " { \
+    \"name\": \"Coffee Machine\",\
+    \"uniq_id\": \"Coffee_Machine\",\
+    \"dev\": {\
+        \"ids\": \"ecda3bbff2cc0000\",\
+        \"name\": \"Coffee Machine\",\
+        \"sw\": \"1.0.0\"\
+    },\
+    \"stat_t\": \"aha/ecda3bbff2cc0000/Coffee_Machine/stat_t\",\
+    \"cmd_t\": \"aha/ecda3bbff2cc0000/Coffee_Machine/cmd_t\"\
+    }"; 
+
+    // int msg_id = esp_mqtt_client_subscribe(client, "homeassistant/switch/ecda3bbff2cc0000/Coffee Machine/config", 1);
+    int msg_id = esp_mqtt_client_subscribe(client, "aha/ecda3bbff2cc0000/Coffee_Machine/stat_t", 1);
+    ESP_LOGI(TAG, "sent subscribe successful, msg_id=%d", msg_id);
+    msg_id = esp_mqtt_client_subscribe(client, "aha/ecda3bbff2cc0000/Coffee_Machine/cmd_t", 1);
+    ESP_LOGI(TAG, "sent subscribe successful, msg_id=%d", msg_id);
+    msg_id = esp_mqtt_client_publish(client, "homeassistant/switch/ecda3bbff2cc0000/Coffee Machine/config", configMessage, 0, 0, 0);
+    ESP_LOGI(TAG, "sent publish successful, msg_id=%d", msg_id);
 }
 
 MqttClient::MqttClient(MqttBrokerAddress brokerAddress, MqttConnectionName name, ConnectionPassword password, uint16_t connectionPort) 

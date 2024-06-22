@@ -16,9 +16,9 @@ void DeviceClientService::Run()
 {
     Logger::LogInfo(Logger::LogSource::Client, "DeviceClientService Started.");
     Delay(6000);
-    MqttConnectionName connectionName = {"ESP32C3"};
+    MqttConnectionName connectionName = {"yuri"};
     ConnectionPassword connectionPassword = {"yuriflash"};
-    MqttBrokerAddress brokerAddress = {"192.168.1.133"};
+    MqttBrokerAddress brokerAddress = {"mqtt://192.168.1.133/"};
     uint16_t connectionPort = 1883;
 
 //(MqttBrokerAddress brokerAddress, MqttConnectionName name, ConnectionPassword password, uint16_t connectionPort)
