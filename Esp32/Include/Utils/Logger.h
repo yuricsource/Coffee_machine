@@ -21,6 +21,8 @@ public:
 		HttpServer,
 		Command,
 		Client,
+		Mqtt,
+
 		MaxLogSourceCount,
 		Unknown = 255
 	};

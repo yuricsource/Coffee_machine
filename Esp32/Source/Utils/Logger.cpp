@@ -33,7 +33,8 @@ Logger::LogInfos typeInfos[static_cast<uint8_t>(Logger::LogSource::MaxLogSourceC
 	{" TCP  ", 6},
 	{"WEBSRV", 6},
 	{" CMD  ", 6},
-	{"CLIENT", 6}
+	{"CLIENT", 6},
+	{" MQTT ", 6}
 };
 
 void Logger::LogInfo(const char *format, ...)

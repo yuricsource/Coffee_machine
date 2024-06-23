@@ -26,6 +26,8 @@ public:
     Hardware();
     ~Hardware();
     WifiDriver &GetWifi() { return _wifiDriver; }
+    MacAddress &GetMacAddress() { return _macAdrress; }
+    uint32_t GetCllockSpeed() { return _clockSpeed; }
     uint32_t Milliseconds();
     void SoftwareReset();
 
