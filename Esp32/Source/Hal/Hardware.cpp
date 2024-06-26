@@ -12,7 +12,8 @@ namespace Hal
 Hardware *Hardware::_pHardware;
 
 Hardware::Hardware() :
-	_wifiDriver()
+	_wifiDriver(),
+	_motor(GPIO_NUM_4, LEDC_CHANNEL_0)
 {
 	esp_chip_info(&_mcuInfo);
 	esp_base_mac_addr_get(_macAdrress.data());
@@ -37,6 +38,17 @@ Hardware::Hardware() :
 		_pHardware = this;
 	else
 		printf("!!! Error: Only one instance of System can be created !!!\n");
+
+	_motor.Init();
+
+	Dwt::DelayMilliseconds(1000);
+	_motor.SetPositon(20);
+	Dwt::DelayMilliseconds(1000);
+	_motor.SetPositon(50);
+	Dwt::DelayMilliseconds(1000);
+	_motor.SetPositon(70);
+	Dwt::DelayMilliseconds(1000);
+	_motor.SetPositon(100);
 }
 
 Hardware::~Hardware()

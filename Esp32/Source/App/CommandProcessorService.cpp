@@ -23,7 +23,10 @@ void CommandProcessorService::Run()
             case CommandId::SetMotorPosition:
                 Logger::LogInfo(Logger::LogSource::Command,"SetMotorPosition Command Received: Angle = %d\n", static_cast<uint8_t>(cmd.MotorPosition.Angle));
                 break;
-            
+            case CommandId::PrepareCoffeeMachine:
+                Logger::LogInfo(Logger::LogSource::Command,"Prepare the coffee machine command received\n");
+                break;
+
             default:
                 Logger::LogInfo(Logger::LogSource::Command,"Unkown Command ID Received: %d\n", static_cast<uint16_t>(cmd.Command));
                 break;
@@ -44,7 +47,5 @@ void CommandProcessorService::enqueueCommand(CommandBase& command)
 {
     _cmdQueue.Enqueue(&command);
 }
-
-
 
 }

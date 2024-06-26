@@ -14,6 +14,7 @@ enum class CommandId : uint16_t
 {
 	Unknown = 0,
 	SetMotorPosition,
+	PrepareCoffeeMachine,
 	MaxIndexCount
 };
 
