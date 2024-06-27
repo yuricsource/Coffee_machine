@@ -34,7 +34,7 @@ public:
     }
 
     void SetMotorPositionCommand(uint8_t angle);
-
+    void SetPrepareCoffeeMachineCommand();
 private:
     void enqueueCommand(CommandBase& command);
 

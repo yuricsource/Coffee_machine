@@ -40,14 +40,6 @@ Hardware::Hardware() :
 		printf("!!! Error: Only one instance of System can be created !!!\n");
 
 	_motor.Init();
-
-	Dwt::DelayMilliseconds(1000);
-	_motor.SetPositon(20);
-	Dwt::DelayMilliseconds(1000);
-	_motor.SetPositon(50);
-	Dwt::DelayMilliseconds(1000);
-	_motor.SetPositon(70);
-	Dwt::DelayMilliseconds(1000);
 	_motor.SetPositon(100);
 }
 

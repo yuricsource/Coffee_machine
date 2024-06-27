@@ -22,7 +22,6 @@ extern "C" void app_main(void)
     ApplicationAgent::Instance()->Initialize();
     
     vTaskDelay(300);
-    ApplicationAgent::Instance()->GetCommandService()->SetMotorPositionCommand(180);
 
     for(;;)
     {

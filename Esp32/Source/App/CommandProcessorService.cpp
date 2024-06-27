@@ -25,6 +25,14 @@ void CommandProcessorService::Run()
                 break;
             case CommandId::PrepareCoffeeMachine:
                 Logger::LogInfo(Logger::LogSource::Command,"Prepare the coffee machine command received\n");
+                	Delay(1000);
+                    Hal::Hardware::Instance()->GetServoMotor().SetPositon(10);
+                    Delay(1000);
+                    Hal::Hardware::Instance()->GetServoMotor().SetPositon(100);
+                    Delay(20000);
+                    Hal::Hardware::Instance()->GetServoMotor().SetPositon(10);
+                    Delay(1000);
+                    Hal::Hardware::Instance()->GetServoMotor().SetPositon(100);
                 break;
 
             default:
@@ -40,6 +48,13 @@ void CommandProcessorService::SetMotorPositionCommand(uint8_t angle)
     CommandBase cmd;
     cmd.Command = Common::CommandId::SetMotorPosition;
     cmd.MotorPosition.Angle = angle;
+    enqueueCommand(cmd);
+}
+
+void CommandProcessorService::SetPrepareCoffeeMachineCommand()
+{
+    CommandBase cmd;
+    cmd.Command = Common::CommandId::PrepareCoffeeMachine;
     enqueueCommand(cmd);
 }
 

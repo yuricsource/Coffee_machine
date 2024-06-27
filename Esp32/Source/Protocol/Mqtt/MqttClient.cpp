@@ -8,6 +8,7 @@
 #include "MqttClient.h"
 #include "mqtt_client.h"
 #include "Logger.h"
+#include "ApplicationAgent.h"
 
 #define MQTT_DEBUG
 
@@ -85,11 +86,17 @@ static void mqtt_event_handler(void *handler_args, esp_event_base_t base, int32_
         Logger::LogInfo(Logger::LogSource::Mqtt, "MQTT_EVENT_DATA");
         Logger::LogInfo(Logger::LogSource::Mqtt, "TOPIC=%.*s", event->topic_len, event->topic);
         Logger::LogInfo(Logger::LogSource::Mqtt, "DATA=%.*s", event->data_len, event->data);
+
+        if (memcmp(event->data, "ON", event->data_len) == 0)
+        {
+                Applications::ApplicationAgent::Instance()->GetCommandService()->SetPrepareCoffeeMachineCommand();
+        }
 #endif
         break;
     case MQTT_EVENT_ERROR:
         Logger::LogInfo(Logger::LogSource::Mqtt, "MQTT_EVENT_ERROR");
-        if (event->error_handle->error_type == MQTT_ERROR_TYPE_TCP_TRANSPORT) {
+        if (event->error_handle->error_type == MQTT_ERROR_TYPE_TCP_TRANSPORT) 
+        {
             log_error_if_nonzero("reported from esp-tls", event->error_handle->esp_tls_last_esp_err);
             log_error_if_nonzero("reported from tls stack", event->error_handle->esp_tls_stack_err);
             log_error_if_nonzero("captured as transport's socket errno",  event->error_handle->esp_transport_sock_errno);
